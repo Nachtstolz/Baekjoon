@@ -1,4 +1,6 @@
-# 10814 # 실패
+# 10814 # 성공! # 시간이 너무 오래걸려서 다른 코드 참고해보기
+# -> 파이썬의 경우 readline 으로 시간 단축하는 방법밖엔 없었음.
+# 타 언어 (C, JAVA 등)의 경우 시간이 적게 걸리는 것 확인.
 # 나이순 정렬
 
 # 온라인 저지에 가입한 사람들의 나이와 이름이 가입한 순서대로 주어진다.
@@ -13,17 +15,18 @@
 # 한 줄에 한 명씩 나이와 이름을 공백으로 구분해 출력한다.
 
 n = int(input())
-list_age = []
-list_name = []
+
+li = []
 for i in range(n) :
-    age, name = input().split()
+    age, name = input().split(' ')
     age = int(age)
-    list_age.append(age)
-    list_name.append(name)
+    tmp = (name, age)
+    li.append(tmp)
 
-dic = dict(zip(list_name, list_age))
-res = sorted(dic.items(), key = lambda item : item[1])
-# print(res)
+# 딕셔너리로 하게 될 경우 같은 이름의 사람들 저장에 어려움 발생.
+# dic = dict(zip(list_name, list_age))
+# res = sorted(dic.items(), key = lambda item : item[1])
 
-for i in res :
+li.sort(key = lambda item : item[1])
+for i in li :
     print(i[1], i[0])

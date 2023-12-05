@@ -1,4 +1,4 @@
-# 2606 # 바이러스 # 그래프 이론 풀이
+# 2606 # 바이러스 # 그래프 이론 & DFS BFS 풀이 # 성공
 
 # 신종 바이러스인 웜 바이러스는 네트워크를 통해 전파된다. 한 컴퓨터가 웜 바이러스에 걸리면
 # 그 컴퓨터와 네트워크 상 연결되어 있는 모든 컴퓨터는 웜 바이러스에 걸리게 된다.
@@ -12,6 +12,7 @@
 # 1번 컴퓨터가 웜 바이러스에 걸렸을 때, 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를
 # 출력하라.
 
+''' 그래프 이론 사용 풀이 '''
 def find_parent(parent, x) :
     if parent[x] != x :
         parent[x] = find_parent(parent, parent[x])
@@ -44,3 +45,55 @@ for i in range(1, node+1) :
         cnt+=1
 
 print(cnt-1)
+
+
+''' DFS / BFS 사용한 풀이 '''
+from collections import deque
+
+def dfs(graph, visited, start) :
+
+    if visited[start] == 0 :
+        visited[start] = 1
+    else :
+        return
+    
+    for i in range(1, node+1) :
+        if visited[i] == 0 and graph[start][i] == 1 :
+            dfs(graph, visited, i)
+
+node = int(input())
+line = int(input())
+graph = [[0] * (node+1) for _ in range(node+1)]
+visited_1 = [0] * (node+1)
+visited_2 = [0] * (node+1)
+
+for _ in range(line) :
+    a, b = map(int, input().split())
+    graph[a][b] = graph[b][a] = 1
+
+visited_1[1] = 1
+for i in range(1, node+1) :
+    if graph[1][i] == 1 :
+        dfs(graph, visited_1, i)
+
+res = 0
+for i in range(1, node+1) :
+    if visited_1[i] == 1 :
+        res+=1
+print(res-1)
+
+q = deque()
+q.append(1)
+visited_2[1] = 1
+count = 0
+
+while q :
+    origin = q.popleft()
+    count+=1
+    for i in range(1, node+1) :
+        if visited_2[i] == 0 and graph[origin][i] == 1 :
+            q.append(i)
+            visited_2[i] = 1
+    #time.sleep(3)
+
+print(count-1)

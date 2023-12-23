@@ -20,7 +20,23 @@
 # bfs 처리 가보자고
 
 from collections import deque
+import sys
+sys.setrecursionlimit(10**6)
 
+def dfs(x, y) :
+    global size
+    if (x < 0 or x >= m) or (y < 0 or y >= n) :
+        return 0
+    if graph[x][y] == 1 :
+        return 0
+    
+    graph[x][y] = 1
+    size+=1
+    for k in range(4) :
+        dfs(x+dx[k], y+dy[k])
+
+    return size
+    
 def bfs(x, y) :
     queue = deque()
     queue.append((x,y))
@@ -53,12 +69,22 @@ for _ in range(k) :
 # print(graph)
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
+size = 0
 
+for i in range(m) :
+    for j in range(n) :
+        cnt = dfs(i, j)
+        if cnt :
+            res.append(cnt)
+            size = 0
+
+'''
 for i in range(m) :
     for j in range(n) :
         if graph[i][j] == 0 : # 영역으로 구분된 공간일 때
             graph[i][j] = 1
             res.append(bfs(i, j))
+'''
 
 print(len(res))
 for k in sorted(res) :

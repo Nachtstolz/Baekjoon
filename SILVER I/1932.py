@@ -18,14 +18,12 @@
 # BottomUp) 본인 바로 위 값 & 본인 왼쪽 위 대각선 중에 올라가면서 선택 가능
 
 arr = []
-#sum = 0 # 총합 계산용
-res = 0
+res = 0 # 결과값 저장
 n = int(input())
 
 for i in range(0, n) :
     tmp = list(map(int, input().split()))
     arr.extend(tmp)
-# print(arr)
 
 idx = 0
 # depth별 첫 번째 값을 저장할 (depth 2부터 시작)
@@ -42,9 +40,9 @@ start = 1
 
 while depth <= n :
     for j in range(0, depth) :
-        if j == 0 :
+        if j == 0 : # 가장 왼쪽에 있는 수를 다룰 때
             arr[start+j] += arr[start+j-(depth-1)]
-        elif j == depth-1 :
+        elif j == depth-1 : # 가장 오른쪽에 있는 수를 다룰 때
             arr[start+j] += arr[start+j-depth]
         else :
             arr[start+j] += max(arr[start+j-depth], arr[start+j-(depth-1)])

@@ -44,3 +44,44 @@ for item in arr :
     #print(res)
 # print(res[k])
 print(max(res))
+
+''' 인터넷 풀이법 : 냅색 알고리즘 '''
+# ⭐️ 배낭 문제 : 배낭에 담을 수 있는 무게의 최댓값이 정해져 있고, 일정 가치와 무게가 있는 짐들을 배낭에 넣을 때,
+# 가치의 합이 최대가 되도록 짐을 고르는 방법을 찾는 문제
+
+# 배낭에 짐을 넣을 때, 짐을 쪼개서 넣을 수 있는 경우와 쪼개지 못하고 넣는 경우 두 가지가 존재.
+# 쪼갤 수 있는 경우 '분할가능 배낭 문제' 쪼갤 수 없는 경우 '0-1 배낭 문제'라고 부른다.
+# 쪼갤 수 없는 경우 "동적 계획법"으로 풀 수 있다.
+
+# 알고리즘 설명 :
+# x축엔 가방 1~K까지의 무게, y축은 물건 N개 개수만큼의 배열을 만들어준다. 행을 차례대로 돌며 다음과 같은 알고리즘을 수행한다.
+
+# 1) 현재 물건이 현재 돌고있는 무게보다 작다면 바로 [이전물건][같은무게](knapsack[i-1][j])를 입력해준다.
+# 2) 현재 물건을 넣어준다. 물건을 넣은 뒤의 남은 무게를 채울 수 있는 최댓값(knapsack[i-1][j-weight]을 위의 행에서
+#   가져와 더해준다.
+# 3) 현재 물건을 넣어주는 것보다 다른 물건들로 채우는 값(knapsack[i-1][j])을 가져온다.
+# 2)와 3) 중 더 큰 값을 knapsack[i][j]에 저장한다. 이 값은 현재까지의 물건들로 구성할 수 있는 가장 가치 높은 구성이다.
+# kanpsack[N][K]는 곧, K 무게일 때의 최댓값을 가리킨다.
+
+'''
+N, K = map(int, input().split())
+stuff = [[0,0]]
+knapsack = [[0 for _ in range(K + 1)] for _ in range(N + 1)]
+
+for _ in range(N):
+    stuff.append(list(map(int, input().split())))
+
+
+#냅색 문제 풀이
+for i in range(1, N + 1):
+    for j in range(1, K + 1):
+        weight = stuff[i][0] 
+        value = stuff[i][1]
+       
+        if j < weight:
+            knapsack[i][j] = knapsack[i - 1][j] #weight보다 작으면 위의 값을 그대로 가져온다
+        else:
+            knapsack[i][j] = max(value + knapsack[i - 1][j - weight], knapsack[i - 1][j])
+
+print(knapsack[N][K])
+'''

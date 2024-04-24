@@ -25,3 +25,21 @@ for item in nCm :
             print(item[i], end=' ')
     print()
     
+
+''' dfs를 활용한 백트래킹 풀이법 - 인터넷 참고 '''
+
+# 원리는 아이패드 내 그림 참고
+n,m = map(int, input().split())
+s = []
+
+def dfs(start) :
+    if len(s) == m : # 원하는 길이만큼 나왔을 때 즉, 조합 찾으면 출력
+        print(' '.join(map(str, s)))
+        return
+    
+    for i in range(start, n+1) :
+        if i not in s :
+            s.append(i)
+            dfs(i+1) # 조합 만들기 위한 dfs 재귀 호출
+            s.pop() # 만든 조합에서 하나 빼기
+dfs(1)

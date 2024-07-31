@@ -1,4 +1,4 @@
-# 11726 # DP # Top-down으로 풀이
+# 11726 # DP # Top-down으로 풀이 # Bottom-up 추가
 # 추후 배열에 값 저장 -> 활용하는 방식 찾아보기
 # 2xn 타일링
 
@@ -27,3 +27,16 @@ def func(n) :
     return dp[n]
 
 print(func(n)%10007)
+
+''' 인터넷 참고 코드 1 ''' # Bottom up
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+dp = [0] * 1001
+dp[1] = 1
+dp[2] = 2
+for i in range(3, n+1) :
+    dp[i] = (dp[i-1] + dp[i-2]) % 10007
+
+print(dp[n])

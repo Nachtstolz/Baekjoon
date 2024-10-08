@@ -1,4 +1,4 @@
-# 1966
+# 1966 # 성공
 # 프린터 큐
 
 # 여러분도 알다시피 여러분의 프린터 기기는 여러분이 인쇄하고자 하는 문서를 인쇄 명령을 받은 순서대로 즉, 먼저 요청된 것을
@@ -20,8 +20,6 @@
 # 각 테스트 케이스에 대해 문서가 몇 번째로 인쇄되는지 출력하라.
 
 from collections import deque
-# import heapq
-# import time
 
 t = int(input()) # 테스트 케이스
 for i in range(t) :
@@ -30,7 +28,6 @@ for i in range(t) :
     first = max(arr)
     q = deque()
     for j in range(n) :
-        q.append((arr[j],j))
     # print(q)
     
     turn = 1
@@ -40,12 +37,10 @@ for i in range(t) :
             if q[0][1] == m : # 내가 찾으려는 값 즉, m번째 수인지
                 break
             q.popleft()
-            turn += 1
+            turn += 1 # 나간 걸로 turn 체크
             arr.remove(first)
-            first = max(arr)
+            first = max(arr) # 가장 큰 우선순위 값 재조정
         else :
-            q.append(q.popleft())
-            #q.pop()
-        # time.sleep(1)
+            q.append(q.popleft()) # 뒤로 이동
 
     print(turn)

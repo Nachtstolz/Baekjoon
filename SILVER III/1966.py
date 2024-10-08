@@ -28,6 +28,7 @@ for i in range(t) :
     first = max(arr)
     q = deque()
     for j in range(n) :
+        q.append((arr[j],j)) # (중요도, 인덱스) *이때 인덱스는 m 즉, 찾으려는 값을 위함
     # print(q)
     
     turn = 1

@@ -9,9 +9,10 @@
 
 # 듣보잡의 수와 그 명단을 사전순으로 출력한다.
 
+
 n, m = map(int, input().split())
 
-dic = {}
+dic = {} # 해시
 res = []
 for i in range(n) :
     dic[input()] = 1
@@ -21,6 +22,25 @@ for j in range(m) :
         res.append(tmp)
 
 print(len(res))
-res.sort()
+res.sort() # 정렬 속도 줄일 방법 찾기
 for i in res :
     print(i)
+
+
+''' set을 활용한 코드 : 서치 '''
+n, m = map(int, input().split())
+
+arr1 = []
+arr2 = []
+
+for i in range(n) :
+    arr1.append(input())
+for j in range(m) :
+    arr2.append(input())
+
+# set 교집합
+answer = list(set(arr1) & set(arr2))
+print(len(answer))
+# 리스트 내 원소 한 번에 출력하기
+# Asterisk(*)를 사용하면 리스트 압축 해제가 가능하기 때문
+print(*sorted(answer), sep='\n')

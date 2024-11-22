@@ -74,6 +74,7 @@ print(*parent[2:], sep='\n')
 '''
 
 '''입력 시 값 확인 -> 배열에 저장 : 6분이나 걸려서 맞았다 '''
+'''
 from collections import deque
 
 q = deque([])
@@ -111,3 +112,35 @@ while q :
             parent[i] = edge
     
 print(*parent[2:], sep='\n')
+'''
+''' 타 해결 풀이 확인하기 : 시간 단축 - BFS 활용 '''
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+visited = [False] * (n+1)
+answer = [0] * (n+1)
+graph = [[] for _ in range(n+1)] # 아예 처음부터 2차원 배열 선언
+
+for i in range(n-1) :
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+def bfs(graph, v, visited) :
+    q = deque([v])
+    visited[v] = True
+    while q :
+        x = q.popleft()
+        for i in graph[x] :
+            if not visited[i] :
+                answer[i] = x
+                q.append(i)
+                visited[i] = True
+
+
+bfs(graph, 1, visited)
+
+for i in range(2, n+1) :
+    print(answer[i])

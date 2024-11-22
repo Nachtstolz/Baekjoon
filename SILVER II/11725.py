@@ -1,4 +1,4 @@
-# 11725 # 성공 # 추후 다른 방법 풀이 예정
+# 11725 # 성공 # 서치 솔루션 추가
 # 트리의 부모 찾기
 
 # 루트 없는 트리가 주어진다. 이때, 트리의 루트를 1이라고 정했을 때, 각 노드의 부모를 구하는 프로그램을 작성하시오.
@@ -74,7 +74,6 @@ print(*parent[2:], sep='\n')
 '''
 
 '''입력 시 값 확인 -> 배열에 저장 : 6분이나 걸려서 맞았다 '''
-'''
 from collections import deque
 
 q = deque([])
@@ -112,8 +111,9 @@ while q :
             parent[i] = edge
     
 print(*parent[2:], sep='\n')
-'''
-''' 타 해결 풀이 확인하기 : 시간 단축 - BFS 활용 '''
+
+
+''' (서치) 해결 풀이 확인하기 : 시간 단축 - BFS 활용 '''
 from collections import deque
 import sys
 input = sys.stdin.readline
@@ -141,6 +141,33 @@ def bfs(graph, v, visited) :
 
 
 bfs(graph, 1, visited)
+
+for i in range(2, n+1) :
+    print(answer[i])
+
+
+''' (서치) 해결 풀이 확인하기 : 시간 단축 - DFS 활용 '''
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(1000000)
+
+n = int(input())
+visited = [False] * (n+1)
+answer = [0] * (n+1)
+graph = [[] for _ in range(n+1)]
+for i in range(n-1) :
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+def dfs(graph, v, visited) :
+    visited[v]=True
+    for i in graph[v] :
+        if not visited[i] :
+            answer[i] = v
+            dfs(graph, i, visited)
+
+dfs(graph, 1, visited)
 
 for i in range(2, n+1) :
     print(answer[i])

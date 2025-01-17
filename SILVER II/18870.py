@@ -1,4 +1,4 @@
-# 18870 # 성공 # 정렬 # 해시
+# 18870 # 성공 # 정렬 # 해시 # 풀이 추가
 # 좌표 압축
 
 # 수직선 위에 N개의 좌표 X1, X2, ..., Xn이 있다. 이 좌표에 좌표 압축을 적용하려고 한다.
@@ -17,7 +17,8 @@
 import sys
 input = sys.stdin.readline
 
-
+''' 내 풀이 '''
+'''
 # sort -> 불가능
 # 직접 다 비교 -> 불가능
 
@@ -58,5 +59,17 @@ for i in range(len(res)) :
 
 for i in arr :
     print(dic[i], end = " ")
+'''
 
+''' 온라인 풀이 서치 결과 '''
+n = int(input().strip())
+x = list(map(int, input().strip().split()))
 
+x_sort = sorted(list(set(x))) # 중복 제거
+
+dic = {}
+for i in range(len(x_sort)) :
+    dic[x_sort[i]] = i
+
+for i in x :
+    print(dic[i], end=' ')
